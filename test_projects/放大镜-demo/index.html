@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			.small{
+				width: 300px;
+				height: 225px;
+				margin: 50px 50px;
+				position: relative;
+				overflow: hidden;
+				float: left;
+			}
+			.small img{
+				float: left;
+			}
+			.smallbox{
+				width: 100px;
+				height: 100px;
+				background: black;
+				opacity: 0.3;
+			}
+			.big{
+				width: 400px;
+				height: 400px;
+				overflow: hidden;
+				position: relative;
+			}
+			.big img{
+				position: absolute;
+				top:0;
+				left: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="small">
+			<img src="images/smallpic.jpg" width="300px" />
+			<div class="smallbox"></div>
+		</div>
+		<div class="big">
+			<img id="bigimg" src="images/bigpic.jpg" width="900px" />
+		</div>	
+		
+		
+		
+		<script>
+			var small = document.getElementsByClassName("small")[0];
+			var smallbox = document.getElementsByClassName("smallbox")[0];
+			var big = document.getElementById("bigimg")
+			
+				small.onmousemove = function(){
+				var left = event.clientX - small.offsetLeft - (smallbox.offsetWidth)/2;
+				var top = event.clientY - small.offsetTop - (smallbox.offsetHeight)/2;
+				var maxw = small.offsetWidth - smallbox.offsetWidth;
+				var maxh = small.offsetHeight - smallbox.offsetHeight;
+				left = (left < 0) ? 0:left ;
+				top = (top<0) ? 0:top ;
+				left = (left > maxw) ? maxw :left ;
+				top = (top > maxh) ? maxh : top;
+				smallbox.style.position = "absolute";		
+				smallbox.style.left = left + "px";			
+				smallbox.style.top = top + "px";
+				
+				big.style.left = -left*(big.offsetWidth/small.offsetWidth) +"px";
+				big.style.top = -top*(big.offsetHeight/small.offsetHeight) +"px";				
+			}
+		
+		</script>
+	</body>
+</html>

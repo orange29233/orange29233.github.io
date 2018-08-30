@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<script type="text/javascript">
+		var img = ["0px 0px", "-105px 0px", "-210px 0px", "0px -133px", "-105px -133px", "-210px -133px", "0px -266px", "-105px -266px", "-1000px -1000px"];
+        //1.显示出拼图的页面
+		function aa() {
+			var tab = document.getElementById("tab");
+			var ht = "";
+			var aa = 0;
+			//document.getElementById("di").innerHTML = "<img src='img/11.jpg'   width='300px' height='400px'/>";
+			for (var i = 1; i <= 3; i++) {
+				ht += "<tr>";
+				for (var k = 1; k <= 3; k++) {
+					if (aa == 8) {
+						ht += "<td id=" + aa + " style='width: 105px; height: 133px;background-position:" + img[aa] + " ;' onclick='go(" + aa + ")'></td>";
+					} else {
+						ht += "<td id=" + aa + " style='width: 105px; height: 133px;background-position:" + img[aa] + " ;' onclick='go(" + aa + ")'></td>";
+					}
+					aa++;
+				}
+				ht += "</tr>";
+			}
+			tab.innerHTML = ht;
+		}
+		//2.上下左右方位判断
+		function go(obj) {
+			var num = parseInt(obj) + 1;
+			kk(obj, num);
+			var num = parseInt(obj) + 3;
+			kk(obj, num);
+			var num = parseInt(obj) - 3;
+			kk(obj, num);
+			var num = parseInt(obj) - 1;
+			kk(obj, num);
+		}
+        //3.如果有空白背景定位的值  就替换当前点击的td表格背景定位
+		function kk(obj, num) {
+			if (num >= 0 && num < 9) {
+				if (document.getElementById(num).style.backgroundPosition == img[8]) {
+					document.getElementById(num).style.backgroundPosition = document.getElementById(obj).style.backgroundPosition;
+					document.getElementById(obj).style.backgroundPosition = img[8];
+				}
+			}
+		}
+        //打乱
+		function cc() {
+			for (var i = 0; i < 500; i++) {
+				var obj = Math.floor(Math.random() * img.length);
+				go(obj);
+			}
+		}
+	</script>
+
+	<body>
+		<p align="center">
+			<input type="button" onclick="aa()" value="开始" />
+			<input type="button" onclick="cc()" value="打乱" />
+		</p>
+		<table align="center" id="tab" width="317px" border="1px" height="400px">
+
+		</table>
+		<div id="di">
+
+		</div>
+		<style type="text/css">
+			td {
+				background-image: url(img/11.jpg);
+				background-repeat: no-repeat;
+			}
+			#di {
+				height: 500px;
+				width: 400px;
+				float: left;
+				margin-top: -400px;
+				margin-left: 150px;
+			}
+		</style>
+	</body>
+
+</html>
